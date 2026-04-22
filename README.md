@@ -4,6 +4,11 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
 [![Benchmark: Goldcanstaytoday](https://img.shields.io/badge/benchmark-Goldcanstaytoday-gold.svg)](docs/specs/goldcanstaytoday_spec_v1.md)
+[![Status: Stable](https://img.shields.io/badge/status-stable-brightgreen.svg)](#)
+
+> **Governance:** DGAF / Agent Amethyst — Yes. This repo is the flagship benchmark under the DGAF evaluation layer. Outputs feed into [junior-apogee-app](https://github.com/Flickerflash/junior-apogee-app) and Driftwatch visualization. See [DGAF-Framework](https://github.com/Flickerflash/DGAF-Framework) for spine documentation.
+
+**Status: Stable — actively maintained. Last eval run logged in `runlogs/`.** Small commit gaps do not indicate abandonment; this repo operates on evaluation cadence, not daily commits.
 
 Evaluation framework for ResumeApex AI assistance, featuring the **Goldcanstaytoday** 3-layer benchmark.
 
@@ -57,6 +62,8 @@ resumeapex-eval/
 ## Related Projects
 
 - [junior-apogee-app](https://github.com/Flickerflash/junior-apogee-app) — primary evaluated system
+- [DGAF-Framework](https://github.com/Flickerflash/DGAF-Framework) — governance spine
+- [Amethyst-Governance-Eval-Stack](https://github.com/Flickerflash/Amethyst-Governance-Eval-Stack) — meta-orchestration eval layer
 - [ai-prompt-systems-portfolio](https://github.com/Flickerflash/ai-prompt-systems-portfolio) — prompt eval patterns
 
 ## License
