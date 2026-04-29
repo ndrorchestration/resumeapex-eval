@@ -18,7 +18,7 @@ Goldcanstaytoday is a three-layer evaluation protocol designed to assess the rob
 
 1. **Performance Layer (P)** — task success, completeness, formatting quality
 2. **Reciprocity Layer (R)** — user-centered behavior, clarification, constraint respect
-3. **Lavender/Apogee Meta Layer (L)** — hallucination detection, epistemic humility, governance compliance
+3. **Amethyst/Apogee Meta Layer (A)** — hallucination detection, epistemic humility, governance compliance
 
 Full spec: [docs/specs/goldcanstaytoday_spec_v1.md](docs/specs/goldcanstaytoday_spec_v1.md)
 
