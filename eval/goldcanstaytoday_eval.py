@@ -1,7 +1,7 @@
 """
 Goldcanstaytoday Evaluation Scaffold v1 — ResumeApex Dataset 1
 
-Three-layer audit: Performance (P), Reciprocity (R), Lavender/Apogee (L)
+Three-layer audit: Performance (P), Reciprocity (R), Amethyst/Apogee (A)
 50–100 runs with bootstrap/k-fold CV, targeting 95% CI.
 
 Fill in load_dataset and run_single_eval_case for your environment.
