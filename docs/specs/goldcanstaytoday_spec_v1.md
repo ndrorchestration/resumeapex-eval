@@ -15,7 +15,7 @@ Goldcanstaytoday is a three-layer evaluation protocol for assessing the robustne
 It is designed to:
 - Quantify performance on realistic resume and career tasks.
 - Measure reciprocity and user-centered behavior over time.
-- Validate the validator (Lavender/Apogee + Reciprocity meta-audit loop).
+- Validate the validator (Amethyst/Apogee + Reciprocity meta-audit loop).
 
 ## 2. Dataset
 
@@ -44,7 +44,7 @@ It is designed to:
 | constraint_respect | 0–1 | Followed all user constraints? |
 | user_centered | 0–1 | Tailored to user style/context? |
 
-### Layer 3: Lavender/Apogee Meta (L)
+### Layer 3: Amethyst/Apogee Meta (A)
 | Metric | Range | Description |
 |--------|-------|-------------|
 | hallucination_flag | 0/1 | Made ungrounded claims? |

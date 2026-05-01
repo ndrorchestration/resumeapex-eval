@@ -8,7 +8,7 @@
 
 ### Goldcanstaytoday (Primary)
 - **Spec:** [docs/specs/goldcanstaytoday_spec_v1.md](docs/specs/goldcanstaytoday_spec_v1.md)
-- **Protocol:** 3-layer audit (Performance / Reciprocity / Lavender-Apogee)
+- **Protocol:** 3-layer audit (Performance / Reciprocity / Amethyst-Apogee)
 - **Dataset:** Resume Apex Dataset 1
 - **Confidence target:** 95%, ±3% CI half-width
 - **Runs:** 50–100 with k-fold CV
@@ -20,8 +20,8 @@
 |-------|-----------|--------|
 | Performance | task_success | ≥0.85 |
 | Reciprocity | constraint_respect | ≥0.90 |
-| Lavender/Apogee | hallucination_flag | ≤0.05 |
-| Lavender/Apogee | epistemic_humility | ≥0.80 |
+| Amethyst/Apogee | hallucination_flag | ≤0.05 |
+| Amethyst/Apogee | epistemic_humility | ≥0.80 |
 
 ## Honest Constraints
 - Results above are targets, not yet confirmed from completed run logs.
