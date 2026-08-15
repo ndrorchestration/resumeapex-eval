@@ -19,5 +19,5 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-_Maintained by ndrorchestration | DGAF-certified | Governed by Agent Amethyst + Apogee_
+_Maintained by ndrorchestration. Historical changelog attribution retained for provenance; current repository documentation treats DGAF, Agent Amethyst, and Apogee as project-local related terminology, not external certification or governance authority._
 _Version bumps tracked here per S009 IMP-12 directive._
