@@ -4,23 +4,31 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
 [![Benchmark: Goldcanstaytoday](https://img.shields.io/badge/benchmark-Goldcanstaytoday-gold.svg)](docs/specs/goldcanstaytoday_spec_v1.md)
-[![Status: Stable](https://img.shields.io/badge/status-stable-brightgreen.svg)](#)
+[![Status: Experimental](https://img.shields.io/badge/status-experimental-blue.svg)](#)
 
-> **Governance:** DGAF / Agent Amethyst — Yes. This repo is the flagship benchmark under the DGAF evaluation layer. Outputs feed into [junior-apogee-app](https://github.com/ndrorchestration/junior-apogee-app) and Driftwatch visualization. See [DGAF-Framework](https://github.com/ndrorchestration/DGAF-Framework) for spine documentation.
+> **Epistemic status:** Experimental evaluation repository. Goldcanstaytoday is a repository-defined benchmark/protocol. Its existence, CI execution, or relationship to other projects does not by itself establish statistical validation, external certification, governance authority, or production readiness.
 
-**Status: Stable — actively maintained. Last eval run logged in `runlogs/`.** Small commit gaps do not indicate abandonment; this repo operates on evaluation cadence, not daily commits.
+ResumeApex Eval Suite contains the **Goldcanstaytoday** evaluation protocol and supporting evaluation artifacts for AI assistance on resume and career tasks.
 
-Evaluation framework for ResumeApex AI assistance, featuring the **Goldcanstaytoday** 3-layer benchmark.
+## Governance boundary
+
+This repository may integrate with or provide outputs to other projects, including Junior Apogee, Driftwatch, DGAF-related work, and Amethyst-related evaluation work. Those integrations do not make this repository a certified or authoritative evaluation layer, and they do not establish mutual validation.
+
+- **DGAF** — Dynamic Governance Agentic Formation, a related but separate governance/evaluation research track.
+- **Amethyst** — related project-local evaluation/orchestration terminology.
+- **Driftwatch** — separate drift-detection track.
 
 ## What Is Goldcanstaytoday?
 
-Goldcanstaytoday is a three-layer evaluation protocol designed to assess the robustness and trustworthiness of AI assistance on resume and career tasks:
+Goldcanstaytoday is a three-layer, repository-defined evaluation protocol intended to assess AI assistance on resume and career tasks:
 
 1. **Performance Layer (P)** — task success, completeness, formatting quality
 2. **Reciprocity Layer (R)** — user-centered behavior, clarification, constraint respect
-3. **Amethyst/Apogee Meta Layer (A)** — hallucination detection, epistemic humility, governance compliance
+3. **Amethyst/Apogee Meta Layer (A)** — repository-defined checks for hallucination detection, epistemic humility, and governance-related behavior
 
-Full spec: [docs/specs/goldcanstaytoday_spec_v1.md](docs/specs/goldcanstaytoday_spec_v1.md)
+Full protocol specification: `docs/specs/goldcanstaytoday_spec_v1.md`.
+
+The layer names and criteria are project-local definitions. They should not be presented as industry-standard certification categories without independent evidence.
 
 ## Quick Start
 
@@ -33,43 +41,58 @@ python eval/goldcanstaytoday_eval.py --data datasets/resumeapex_dataset1.json
 
 ## Repository Structure
 
-```
+```text
 resumeapex-eval/
 ├── docs/
 │   ├── specs/
-│   │   ├── goldcanstaytoday_spec_v1.md        # Full protocol spec
+│   │   ├── goldcanstaytoday_spec_v1.md
 │   │   └── goldcanstaytoday_metrics_rubric_v1.md
 │   ├── datasets/
-│   │   └── resumeapex_dataset1_card_v1.md     # Dataset card
+│   │   └── resumeapex_dataset1_card_v1.md
 │   └── cards/
-│       └── resumeapex_eval_card_v1.md         # Eval/model card
+│       └── resumeapex_eval_card_v1.md
 ├── eval/
-│   └── goldcanstaytoday_eval.py            # Runnable eval scaffold
-├── runlogs/                              # Evaluation run logs (JSONL)
-├── summaries/                            # Aggregate summaries
+│   └── goldcanstaytoday_eval.py
+├── runlogs/
+├── summaries/
 ├── .github/workflows/
-│   └── eval-goldcanstaytoday.yml          # Weekly/manual CI runner
+│   └── eval-goldcanstaytoday.yml
 └── LICENSE
 ```
 
 ## Evaluation Standards
 
+The following are **target design parameters**, not claims that the benchmark has achieved these statistical properties:
+
 - **Statistical target:** 95% confidence, ±3% CI half-width
 - **Runs:** 50–100 independent runs per evaluation
 - **Cross-validation:** k-fold (k≈10)
-- **Dataset:** Resume Apex Dataset 1 (real + synthetic, ~500 cases)
+- **Dataset target:** Resume Apex Dataset 1, including real and synthetic cases
+
+Current validation status must be established from the dated run logs, dataset provenance, evaluator implementation, and reproducible results. A CI badge only establishes that the associated workflow reported a result; it does not certify the benchmark.
+
+## Evidence Standard
+
+Claims should distinguish:
+
+**DEFINED → IMPLEMENTED → COMPUTED → VERIFIED → ATTESTED → HISTORICAL → HYPOTHESIS → METAPHOR → UNSUPPORTED → DEPRECATED**
+
+In particular, a benchmark specification is not evidence that the benchmark is validated, and a numerical target is not an achieved result until it is computed from reproducible data.
 
 ## Related Projects
 
-- [junior-apogee-app](https://github.com/ndrorchestration/junior-apogee-app) — primary evaluated system
-- [DGAF-Framework](https://github.com/ndrorchestration/DGAF-Framework) — governance spine
-- [Amethyst-Governance-Eval-Stack](https://github.com/ndrorchestration/Amethyst-Governance-Eval-Stack) — meta-orchestration eval layer
-- [ai-prompt-systems-portfolio](https://github.com/ndrorchestration/ai-prompt-systems-portfolio) — prompt eval patterns
+- `junior-apogee-app` — related evaluation/QA track
+- `DGAF-Framework` — related governance/evaluation research track
+- `Amethyst-Governance-Eval-Stack` — related evaluation/orchestration track
+- `ai-prompt-systems-portfolio` — prompt-engineering/evaluation portfolio
+- `Driftwatch` — separate drift-detection track
+
+Cross-repository references describe intended relationships or integrations; they do not establish mutual validation.
 
 ## License
 
-Apache 2.0 — see [LICENSE](LICENSE).
+Apache 2.0 — see `LICENSE`.
 
 ## Author
 
-[Ndr "Ender" Hensel](https://github.com/ndrorchestration) · [LinkedIn](https://www.linkedin.com/in/andrewhensel)
+Ndr / Ender Hensel (`ndrorchestration`)
