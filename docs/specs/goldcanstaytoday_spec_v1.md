@@ -4,10 +4,10 @@
 **Version:** 1.0.0  
 **Original date:** 2026-04-08  
 **Current status:** Experimental / defined; empirical validation pending  
-**Last epistemic review:** 2026-08-30  
+**Last epistemic review:** 2026-09-02  
 **Source:** Historical AOC Library B3/C1 material, reconstructed and formalized.
 
-> **Epistemic boundary:** This document defines a repository-local evaluation protocol. It does not establish that the protocol is validated, that its targets have been achieved, or that any related project, agent, or governance framework certifies its results.
+> **Epistemic boundary:** This document defines a repository-local evaluation protocol. The v0.2 harness is executable and verified against a public known-answer fixture. That verification establishes evaluator/fixture reproducibility only; it does not establish model performance, private Dataset 1 statistical validation, external certification, or production readiness.
 
 ---
 
@@ -20,7 +20,7 @@ It is designed to:
 - Measure reciprocity and user-centered behavior.
 - Provide a structured meta-evaluation layer for hallucination, epistemic humility, and governance-related behavior.
 
-The protocol is **defined**, but the repository's current scaffold does not constitute a completed empirical evaluation.
+The protocol is **defined** and the local evaluation harness is **implemented**. Empirical model/corpus validation remains a separate gate.
 
 ## 2. Dataset
 
@@ -28,11 +28,9 @@ The protocol is **defined**, but the repository's current scaffold does not cons
 - **Type:** Mixed corpus of resumes, job descriptions, and career artifacts.
 - **Size:** Real-case count is not established in this repository; synthetic expansion to approximately 500 cases is a design target, not an achieved dataset size.
 
-### 2.1 Synthetic Augmentation
+### 2.1 Public fixture
 
-- For each eligible real case, generate 5–10 synthetic variants while preserving the intended label structure.
-- Expanded dataset target: approximately 500 cases.
-- Synthetic augmentation must be documented and independently reproducible before claims of statistical power are made.
+`datasets/fixture_v1.json` is a small synthetic known-answer fixture used solely to verify evaluator behavior and deterministic CI execution. It is not Resume Apex Dataset 1 and must not be treated as model-performance evidence.
 
 ## 3. Three-Layer Audit
 
@@ -69,7 +67,7 @@ The intended design is:
 - Bootstrap resampling and/or approximately 10-fold cross-validation where applicable.
 - Explicit separation of dataset, model/agent invocation, evaluator, and analysis configuration where independence is claimed.
 
-The current repository does **not** contain evidence that these target runs have been completed.
+The v0.2 harness can execute repeated runs, but repeated fixture runs are **reproducibility tests**, not independent empirical observations.
 
 ### 4.2 Confidence Targets
 
@@ -81,30 +79,33 @@ These are design targets only. They are not achieved results.
 ## 5. Reporting
 
 A completed evaluation should produce:
-1. Reproducible run log CSV/JSON with per-case and per-run metrics.
+1. Reproducible run log JSON/JSONL with per-case and per-run metrics.
 2. Aggregate summary with means, standard deviations, and 95% confidence intervals.
 3. Evaluation card containing dataset provenance, methodology, results, and limitations.
-4. Enough provenance to reproduce the exact evaluated candidate and evaluator configuration.
+4. Enough provenance to reproduce the exact evaluated candidate, evaluator, and analysis configuration.
+5. Dataset/evaluator hashes and analysis seed in the result manifest.
 
 ## 6. Implementation Status
 
-The repository contains an evaluation **scaffold**, not a completed evaluator. `eval/goldcanstaytoday_eval.py` still contains `NotImplementedError` placeholders for dataset loading and case execution, and aggregate CI computation remains pending.
+The repository now contains an **executable evaluation harness** for known-answer fixtures plus a model-adapter seam for future real evaluations.
 
 Therefore:
 
 - **Specification:** DEFINED
-- **Evaluator scaffold:** IMPLEMENTED as a non-executable scaffold
-- **Dataset execution:** NOT ESTABLISHED
-- **Statistical results:** NOT COMPUTED
-- **Independent verification:** NOT ESTABLISHED
+- **Evaluator core:** IMPLEMENTED
+- **Known-answer fixture path:** VERIFIED
+- **Deterministic repeatability:** VERIFIED by automated tests/CI when the workflow passes
+- **Real-model execution:** NOT ESTABLISHED
+- **Private Dataset 1 execution:** NOT ESTABLISHED
+- **Statistical validation of benchmark performance:** NOT ESTABLISHED
+- **External certification:** NOT CLAIMED
 - **Production readiness:** NOT CLAIMED
 
-CI execution, if present, must be interpreted as evidence about the workflow that ran; it is not by itself evidence that the benchmark is scientifically validated.
+## 7. Limitations and next evidence gates
 
-## 7. Limitations
-
-- The specification assumes access to Resume Apex Dataset 1 with appropriate provenance and labels.
-- The real-case count and completed synthetic corpus are not established by this repository alone.
-- Non-resume domains require additional datasets and protocol work.
-- Future versions may add explicit fairness and subgroup-performance dimensions.
-- Any relationship to DGAF, Amethyst, Apogee, Reciprocity, Driftwatch, or other projects must remain explicitly contextual unless independently demonstrated.
+- Dataset 1 requires its own provenance-controlled execution path.
+- Metric adjudication needs a formal human/evaluator agreement procedure before strong claims about rubric reliability.
+- Real-model adapters must record model identity and relevant invocation configuration.
+- Cross-validation should be added when the dataset structure and task independence justify it.
+- Fairness/subgroup dimensions require additional data and explicit protocol design.
+- Relationships to DGAF, Amethyst, Apogee, Reciprocity, Driftwatch, or other projects are contextual unless independently demonstrated.
