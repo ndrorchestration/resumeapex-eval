@@ -14,11 +14,19 @@ def main() -> int:
     parser.add_argument("--runs", type=int, default=1)
     parser.add_argument("--seed", type=int, default=20260902)
     parser.add_argument("--bootstrap-resamples", type=int, default=1000)
+    parser.add_argument("--verify-expected", action="store_true")
     parser.add_argument("--output", default="runlogs/evaluation.json")
     args = parser.parse_args()
 
     cases = load_cases(args.data)
-    result = evaluate(cases, fixture_adapter, runs=args.runs, analysis_seed=args.seed, bootstrap_resamples=args.bootstrap_resamples)
+    result = evaluate(
+        cases,
+        fixture_adapter,
+        runs=args.runs,
+        analysis_seed=args.seed,
+        bootstrap_resamples=args.bootstrap_resamples,
+        verify_expected=args.verify_expected,
+    )
     result["dataset_sha256"] = file_sha256(args.data)
     result["evaluator_version"] = "0.2.0"
     result["adapter"] = "fixture_adapter"
