@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ResumeApex Evaluation Result Manifest v1",
+  "type": "object",
+  "required": ["status", "runs", "cases", "observations", "analysis_seed", "aggregate", "confidence_intervals", "dataset_sha256", "evaluator_version", "adapter", "claims_boundary"],
+  "properties": {
+    "status": {"enum": ["COMPUTED", "VERIFIED"]},
+    "runs": {"type": "integer", "minimum": 1},
+    "cases": {"type": "integer", "minimum": 1},
+    "observations": {"type": "integer", "minimum": 1},
+    "analysis_seed": {"type": "integer"},
+    "bootstrap_resamples": {"type": "integer", "minimum": 1},
+    "known_answer_verification": {"type": "boolean"},
+    "dataset_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "evaluator_version": {"type": "string"},
+    "adapter": {"type": "string"},
+    "claims_boundary": {"type": "string"},
+    "aggregate": {"type": "object"},
+    "confidence_intervals": {"type": "object"},
+    "results": {"type": "array"}
+  }
+}
