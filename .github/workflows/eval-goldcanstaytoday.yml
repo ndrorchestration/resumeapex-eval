@@ -1,12 +1,15 @@
-name: Goldcanstaytoday Eval Scaffold
+name: Goldcanstaytoday Harness
 
 on:
+  pull_request:
+  push:
+    branches: [main]
   schedule:
-    - cron: "0 0 * * 0"  # Weekly on Sunday
+    - cron: "0 0 * * 0"
   workflow_dispatch:
 
 jobs:
-  scaffold-integrity:
+  harness-verification:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,10 +17,23 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Compile evaluation scaffold
+        run: python -m pip install -r requirements.txt
+      - name: Compile evaluator
         run: python -m compileall -q eval
+      - name: Run unit tests
+        run: pytest -q
+      - name: Run deterministic known-answer fixture
+        run: python -m eval.cli --data datasets/fixture_v1.json --runs 2 --seed 20260902 --bootstrap-resamples 1000 --verify-expected --output runlogs/fixture-verification.json
+      - name: Repeat fixture run for reproducibility
+        run: python -m eval.cli --data datasets/fixture_v1.json --runs 2 --seed 20260902 --bootstrap-resamples 1000 --verify-expected --output runlogs/fixture-verification-repeat.json
+      - name: Compare deterministic outputs
+        run: diff -u runlogs/fixture-verification.json runlogs/fixture-verification-repeat.json
+      - name: Publish fixture artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: goldcanstaytoday-harness-verification
+          path: runlogs/fixture-verification*.json
       - name: Report epistemic boundary
         run: |
-          echo "Goldcanstaytoday evaluator is a scaffold; this workflow verifies code integrity only."
-          echo "A successful workflow run is not a benchmark result or scientific validation."
+          echo "Harness verification establishes evaluator/fixture reproducibility only."
+          echo "It is not model performance, benchmark validation, certification, or production-readiness evidence."
