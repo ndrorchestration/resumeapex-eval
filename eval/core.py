@@ -25,7 +25,27 @@ def file_sha256(path: str | Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def evaluate(cases: list[EvaluationCase], evaluator: Evaluator, *, runs: int = 1, analysis_seed: int = 20260902, bootstrap_resamples: int = 10_000) -> dict:
+def _assert_expected(case: EvaluationCase, observed: Mapping[str, float], tolerance: float = 1e-12) -> None:
+    expected = validate_metrics(case.expected_metrics)
+    actual = validate_metrics(observed)
+    mismatches = {
+        name: {"expected": expected[name], "observed": actual[name]}
+        for name in expected
+        if abs(expected[name] - actual[name]) > tolerance
+    }
+    if mismatches:
+        raise ValueError(f"{case.case_id}: known-answer mismatch: {mismatches}")
+
+
+def evaluate(
+    cases: list[EvaluationCase],
+    evaluator: Evaluator,
+    *,
+    runs: int = 1,
+    analysis_seed: int = 20260902,
+    bootstrap_resamples: int = 10_000,
+    verify_expected: bool = False,
+) -> dict:
     validate_cases(cases)
     if runs < 1:
         raise ValueError("runs must be positive")
@@ -34,18 +54,21 @@ def evaluate(cases: list[EvaluationCase], evaluator: Evaluator, *, runs: int = 1
     for run_idx in range(runs):
         for case in cases:
             metrics = validate_metrics(evaluator(case))
+            if verify_expected:
+                _assert_expected(case, metrics)
             run_rows.append({"run": run_idx, "case_id": case.case_id, "metrics": metrics})
             for name, value in metrics.items():
                 metric_samples.setdefault(name, []).append(value)
     aggregate_result = aggregate([row["metrics"] for row in run_rows])
     stats = {name: bootstrap_ci(values, seed=analysis_seed + idx, resamples=bootstrap_resamples) for idx, (name, values) in enumerate(sorted(metric_samples.items()))}
     return {
-        "status": "COMPUTED",
+        "status": "VERIFIED" if verify_expected else "COMPUTED",
         "runs": runs,
         "cases": len(cases),
         "observations": len(run_rows),
         "analysis_seed": analysis_seed,
         "bootstrap_resamples": bootstrap_resamples,
+        "known_answer_verification": verify_expected,
         "aggregate": aggregate_result,
         "confidence_intervals": stats,
         "results": run_rows,
