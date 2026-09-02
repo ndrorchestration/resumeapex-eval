@@ -4,72 +4,56 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
 [![Benchmark: Goldcanstaytoday](https://img.shields.io/badge/benchmark-Goldcanstaytoday-gold.svg)](docs/specs/goldcanstaytoday_spec_v1.md)
-[![Status: Experimental](https://img.shields.io/badge/status-experimental-blue.svg)](#)
+[![Status: Experimental](https://img.shields.io/badge/status-experimental-blue.svg)](#status)
 
-> **Epistemic status:** Experimental evaluation repository. Goldcanstaytoday is a repository-defined benchmark/protocol. Its existence, CI execution, or relationship to other projects does not by itself establish statistical validation, external certification, governance authority, or production readiness.
+> **Epistemic status:** Experimental evaluation repository. Goldcanstaytoday is a repository-defined benchmark/protocol. The executable harness is now testable against a public known-answer fixture, but this does not establish model performance, statistical validation of the private Dataset 1 corpus, external certification, governance authority, or production readiness.
 
-ResumeApex Eval Suite contains the **Goldcanstaytoday** evaluation protocol and supporting evaluation artifacts for AI assistance on resume and career tasks.
+ResumeApex Eval Suite contains the **Goldcanstaytoday** evaluation protocol and a reproducible evaluation harness for AI assistance on resume and career tasks.
 
-## Governance boundary
+## What is implemented
 
-This repository may integrate with or provide outputs to other projects, including Junior Apogee, Driftwatch, DGAF-related work, and Amethyst-related evaluation work. Those integrations do not make this repository a certified or authoritative evaluation layer, and they do not establish mutual validation.
+The repository now separates four maturity states:
 
-- **DGAF** — Dynamic Governance Agentic Formation, a related but separate governance/evaluation research track.
-- **Amethyst** — related project-local evaluation/orchestration terminology.
-- **Driftwatch** — separate drift-detection track.
+| State | Meaning |
+|---|---|
+| **DEFINED** | Protocol/rubric is specified. |
+| **IMPLEMENTED** | Evaluation code exists and is executable. |
+| **VERIFIED** | Evaluator behavior passes known-answer and deterministic-repeatability tests. |
+| **EMPIRICALLY EXECUTED** | A real model/corpus run has produced reproducible results. |
 
-## What Is Goldcanstaytoday?
+The current fixture path reaches **VERIFIED**. Real-model and private-corpus benchmark execution remains a separate gate.
 
-Goldcanstaytoday is a three-layer, repository-defined evaluation protocol intended to assess AI assistance on resume and career tasks:
+## Goldcanstaytoday layers
 
-1. **Performance Layer (P)** — task success, completeness, formatting quality
-2. **Reciprocity Layer (R)** — user-centered behavior, clarification, constraint respect
-3. **Amethyst/Apogee Meta Layer (A)** — repository-defined checks for hallucination detection, epistemic humility, and governance-related behavior
+1. **Performance (P)** — task success, completeness, formatting quality
+2. **Reciprocity (R)** — clarification, constraint respect, user-centered behavior
+3. **Amethyst/Apogee Meta (A)** — hallucination detection, epistemic humility, governance-related behavior
 
-Full protocol specification: `docs/specs/goldcanstaytoday_spec_v1.md`.
-
-The layer names and criteria are project-local definitions. They should not be presented as industry-standard certification categories without independent evidence.
+These are project-local definitions, not industry-standard certification categories.
 
 ## Quick Start
 
 ```bash
 git clone https://github.com/ndrorchestration/resumeapex-eval.git
 cd resumeapex-eval
-pip install -r requirements.txt
-python eval/goldcanstaytoday_eval.py --data datasets/resumeapex_dataset1.json
+python -m pip install -r requirements.txt
+python -m pytest -q
+python -m eval.cli --data datasets/fixture_v1.json --runs 2 --seed 20260902 --bootstrap-resamples 1000 --verify-expected --output runlogs/fixture-verification.json
 ```
 
-## Repository Structure
+The fixture adapter is a **known-answer harness adapter**, not an AI model. Its output must never be presented as model performance.
 
-```text
-resumeapex-eval/
-├── docs/
-│   ├── specs/
-│   │   ├── goldcanstaytoday_spec_v1.md
-│   │   └── goldcanstaytoday_metrics_rubric_v1.md
-│   ├── datasets/
-│   │   └── resumeapex_dataset1_card_v1.md
-│   └── cards/
-│       └── resumeapex_eval_card_v1.md
-├── eval/
-│   └── goldcanstaytoday_eval.py
-├── runlogs/
-├── summaries/
-├── .github/workflows/
-│   └── eval-goldcanstaytoday.yml
-└── LICENSE
-```
+## Reproducibility
 
-## Evaluation Standards
+A run records the dataset hash, evaluator version, run count, analysis seed, bootstrap resample count, metrics, confidence intervals, and epistemic boundary. Deterministic fixture runs are repeated in CI and their artifacts compared byte-for-byte.
 
-The following are **target design parameters**, not claims that the benchmark has achieved these statistical properties:
+## Dataset boundary
 
-- **Statistical target:** 95% confidence, ±3% CI half-width
-- **Runs:** 50–100 independent runs per evaluation
-- **Cross-validation:** k-fold (k≈10)
-- **Dataset target:** Resume Apex Dataset 1, including real and synthetic cases
+`datasets/fixture_v1.json` is public synthetic/known-answer data used to verify the machinery. Resume Apex Dataset 1 is a separate governed corpus and is not represented as publicly released by this repository. Dataset size and empirical benchmark results must come from dated evidence rather than targets in the specification.
 
-Current validation status must be established from the dated run logs, dataset provenance, evaluator implementation, and reproducible results. A CI badge only establishes that the associated workflow reported a result; it does not certify the benchmark.
+## Evaluation targets
+
+The specification's statistical parameters remain **design targets**: 95% confidence, approximately ±3 percentage-point CI half-width, and 50–100 runs with cross-validation. Those targets are not achieved-result claims.
 
 ## Evidence Standard
 
@@ -77,7 +61,7 @@ Claims should distinguish:
 
 **DEFINED → IMPLEMENTED → COMPUTED → VERIFIED → ATTESTED → HISTORICAL → HYPOTHESIS → METAPHOR → UNSUPPORTED → DEPRECATED**
 
-In particular, a benchmark specification is not evidence that the benchmark is validated, and a numerical target is not an achieved result until it is computed from reproducible data.
+A benchmark specification is not benchmark validation. A green CI run demonstrates only the checks executed by that workflow.
 
 ## Related Projects
 
@@ -87,7 +71,11 @@ In particular, a benchmark specification is not evidence that the benchmark is v
 - `ai-prompt-systems-portfolio` — prompt-engineering/evaluation portfolio
 - `Driftwatch` — separate drift-detection track
 
-Cross-repository references describe intended relationships or integrations; they do not establish mutual validation.
+Cross-repository references do not establish mutual validation.
+
+## Status
+
+**Active / experimental.** The public fixture harness is executable and CI-verifiable. Real benchmark execution, private Dataset 1 validation, inter-rater validation, and model-performance claims remain separate evidence gates.
 
 ## License
 
