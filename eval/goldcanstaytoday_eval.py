@@ -1,9 +1,9 @@
-"""Backward-compatible entry point for the Goldcanstaytoday harness.
+"""Backward-compatible entry point for the Goldcanstaytoday harness."""
 
-The executable implementation lives in ``eval.cli`` and ``eval.core``.
-"""
-
-from .cli import main
+try:
+    from .cli import main
+except ImportError:  # direct ``python eval/goldcanstaytoday_eval.py`` invocation
+    from eval.cli import main
 
 
 if __name__ == "__main__":
