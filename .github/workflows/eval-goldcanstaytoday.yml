@@ -8,6 +8,9 @@ on:
     - cron: "0 0 * * 0"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   harness-verification:
     runs-on: ubuntu-latest
@@ -21,7 +24,7 @@ jobs:
       - name: Compile evaluator
         run: python -m compileall -q eval
       - name: Run unit tests
-        run: pytest -q
+        run: python -m pytest -q
       - name: Run deterministic known-answer fixture
         run: python -m eval.cli --data datasets/fixture_v1.json --runs 2 --seed 20260902 --bootstrap-resamples 1000 --verify-expected --output runlogs/fixture-verification.json
       - name: Repeat fixture run for reproducibility
