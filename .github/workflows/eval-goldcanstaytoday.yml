@@ -16,6 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Enforce current template evidence boundary
+        shell: bash
+        run: |
+          if grep -R -nE 'DGAF-certified|Meta-orchestrated by Agent Amethyst|Governed by .*DGAF-Framework' \
+            .github/pull_request_template.md .github/ISSUE_TEMPLATE; then
+            echo "Current issue/PR templates must not emit certification or persona-keyed DGAF authority claims." >&2
+            exit 1
+          fi
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
