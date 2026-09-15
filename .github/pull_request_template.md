@@ -20,6 +20,3 @@ Describe how this was tested.
 - [ ] Self-review completed
 - [ ] Documentation updated if needed
 - [ ] No new warnings introduced
-
----
-*Governed by [DGAF-Framework](https://github.com/ndrorchestration/DGAF-Framework) · Meta-orchestrated by Agent Amethyst*
