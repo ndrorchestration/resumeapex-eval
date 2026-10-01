@@ -1,0 +1,151 @@
+{
+  "record_type": "STRUCTURAL_EPISTEMICS_EVIDENCE_GRAPH",
+  "schema_version": 1,
+  "graph_id": "EGRAPH-RESUME-EVAL-001",
+  "claims": [
+    {
+      "record_type": "STRUCTURAL_EPISTEMICS_CLAIM_RECORD",
+      "schema_version": 1,
+      "claim_id": "CLAIM-FIXTURE-REPEATABILITY",
+      "proposition": "The reviewed ResumeApex known-answer fixture produces repeatable evaluator outputs under the recorded deterministic configuration.",
+      "claim_class": "INFERENCE",
+      "scope": {
+        "system": "RESUMEAPEX_EVAL",
+        "population_or_context": "public known-answer fixture under deterministic local/CI configuration",
+        "exclusions": [
+          "real-model performance",
+          "private Dataset 1 validity",
+          "general evaluator effectiveness",
+          "external certification"
+        ]
+      },
+      "temporal_validity": {
+        "valid_from": "2026-10-01T00:00:00Z",
+        "valid_until": null,
+        "review_by_or_condition": "review if fixture, evaluator implementation, configuration, or reproducibility evidence changes"
+      },
+      "source_roots": [
+        "resumeapex-fixture-run-bundle",
+        "resumeapex-repeat-run-bundle"
+      ],
+      "derivation_steps": [
+        "compare deterministic fixture outputs across repeated runs",
+        "retain any mismatch evidence rather than averaging it away",
+        "bound interpretation to known-answer machinery rather than model performance"
+      ],
+      "dependency_signature": {
+        "status": "KNOWN",
+        "roots": [
+          "resumeapex-fixture-run-bundle",
+          "resumeapex-repeat-run-bundle"
+        ]
+      },
+      "supporting_evidence_ids": [
+        "EVID-FIXTURE-RUN-A",
+        "EVID-FIXTURE-RUN-B"
+      ],
+      "contradicting_evidence_ids": [
+        "EVID-FIXTURE-MISMATCH-CHECK"
+      ],
+      "defeaters": [
+        {
+          "defeater_id": "DEF-FIXTURE-NONDETERMINISM",
+          "condition": "repeated fixture evaluation produces a material output mismatch under the same recorded configuration",
+          "status": "NOT_TRIGGERED"
+        }
+      ],
+      "uncertainty": {
+        "aleatoric": "UNKNOWN",
+        "model_or_parameter": "UNKNOWN",
+        "structural_or_model_form": "UNKNOWN",
+        "data_coverage": 0.4,
+        "provenance": 0.1,
+        "dependency": 0.45,
+        "measurement": 0.1,
+        "temporal": 0.1,
+        "adversarial": "UNKNOWN",
+        "decision_or_consequence": 0.2
+      },
+      "calibration_status": "NOT_APPLICABLE",
+      "verification_status": "NOT_VERIFIED",
+      "epistemic_state": "SUPPORTED",
+      "applicability_state": "CHALLENGED",
+      "causal_level": "ASSOCIATION",
+      "authorization_relevance": "NONE",
+      "supersedes": [],
+      "superseded_by": [],
+      "retraction": {
+        "state": "NOT_RETRACTED",
+        "reason": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "EVID-FIXTURE-RUN-A",
+      "evidence_class": "MEASUREMENT",
+      "source_roots": ["resumeapex-fixture-run-bundle"],
+      "dependency_roots": ["resumeapex-fixture-run-bundle"],
+      "observed_at": "2026-10-01T00:01:00Z",
+      "validity": {
+        "state": "CURRENT",
+        "review_condition": "review if fixture or evaluator changes"
+      },
+      "provenance_ref": "resumeapex://fixture/run-a"
+    },
+    {
+      "evidence_id": "EVID-FIXTURE-RUN-B",
+      "evidence_class": "MEASUREMENT",
+      "source_roots": ["resumeapex-fixture-run-bundle"],
+      "dependency_roots": ["resumeapex-fixture-run-bundle"],
+      "observed_at": "2026-10-01T00:02:00Z",
+      "validity": {
+        "state": "CURRENT",
+        "review_condition": "review if fixture or evaluator changes"
+      },
+      "provenance_ref": "resumeapex://fixture/run-b"
+    },
+    {
+      "evidence_id": "EVID-FIXTURE-MISMATCH-CHECK",
+      "evidence_class": "COUNTEREVIDENCE",
+      "source_roots": ["resumeapex-repeat-run-bundle"],
+      "dependency_roots": [],
+      "observed_at": "2026-10-01T00:03:00Z",
+      "validity": {
+        "state": "CURRENT",
+        "review_condition": "review if repeat-run comparison logic changes"
+      },
+      "provenance_ref": "resumeapex://fixture/mismatch-check"
+    }
+  ],
+  "relations": [
+    {
+      "relation_id": "REL-FIXTURE-RUN-A-SUPPORTS",
+      "relation_type": "SUPPORTS",
+      "source_id": "EVID-FIXTURE-RUN-A",
+      "target_id": "CLAIM-FIXTURE-REPEATABILITY",
+      "scope": "deterministic known-answer fixture"
+    },
+    {
+      "relation_id": "REL-FIXTURE-RUN-B-SUPPORTS",
+      "relation_type": "SUPPORTS",
+      "source_id": "EVID-FIXTURE-RUN-B",
+      "target_id": "CLAIM-FIXTURE-REPEATABILITY",
+      "scope": "deterministic known-answer fixture"
+    },
+    {
+      "relation_id": "REL-FIXTURE-MISMATCH-CONTRADICTS",
+      "relation_type": "CONTRADICTS",
+      "source_id": "EVID-FIXTURE-MISMATCH-CHECK",
+      "target_id": "CLAIM-FIXTURE-REPEATABILITY",
+      "scope": "repeatability interpretation"
+    },
+    {
+      "relation_id": "REL-FIXTURE-RUNS-SHARE-ROOT",
+      "relation_type": "SHARES_SOURCE_ROOT",
+      "source_id": "EVID-FIXTURE-RUN-A",
+      "target_id": "EVID-FIXTURE-RUN-B",
+      "scope": "shared known-answer fixture bundle"
+    }
+  ]
+}
