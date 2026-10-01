@@ -1,0 +1,62 @@
+{
+  "profile_id": "ASSURANCE-PROFILE-V0-RESUMEAPEX",
+  "profile_version": "v0-candidate",
+  "target_system": "resumeapex-eval",
+  "source_identity": "resumeapex-eval-consumer-head",
+  "runtime_identity": "python-3.11-github-actions",
+  "environment_identity": "ubuntu-latest-github-hosted",
+  "material_source_manifest_ref": "manifest://resumeapex/assurance-profile-portability",
+  "independence_class": "SAME_SYSTEM",
+  "claim_ceiling": [
+    "known-answer evaluator machinery only",
+    "no real-model performance claim",
+    "no private Dataset 1 validation claim",
+    "no independent-validation claim",
+    "no certification claim"
+  ],
+  "dimensions": {
+    "measurement_apparatus": {
+      "status": "PASS",
+      "required": true,
+      "evidence_refs": [
+        "resumeapex://fixture-known-answer-harness"
+      ]
+    },
+    "runtime_source_environment_binding": {
+      "status": "PASS",
+      "required": true,
+      "evidence_refs": [
+        "github-actions://consumer-head",
+        "github-actions://python-3.11"
+      ]
+    },
+    "authorization_decision_separation": {
+      "status": "PASS",
+      "required": true,
+      "evidence_refs": [
+        "resumeapex://epistemic-boundary"
+      ]
+    },
+    "custody_replay_integrity": {
+      "status": "PASS",
+      "required": true,
+      "evidence_refs": [
+        "resumeapex://deterministic-repeatability"
+      ]
+    },
+    "readiness_preflight": {
+      "status": "PASS",
+      "required": true,
+      "evidence_refs": [
+        "resumeapex://native-harness-ci"
+      ]
+    },
+    "trust_independence_review": {
+      "status": "PASS",
+      "required": true,
+      "evidence_refs": [
+        "resumeapex://same-system-classification"
+      ]
+    }
+  }
+}
