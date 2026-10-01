@@ -1,0 +1,31 @@
+name: ClaimGraph portability probe
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portability:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout consumer repository
+        uses: actions/checkout@v4
+      - name: Checkout exact ClaimGraph candidate
+        uses: actions/checkout@v4
+        with:
+          repository: ndrorchestration/DGAF-Framework
+          ref: dd78fd19224251cafc7c8b63a95624d3ab50f580
+          path: _deps/dgaf
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install ClaimGraph validator dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install jsonschema
+      - name: Run external-consumer ClaimGraph probe
+        run: python tests/claimgraph_external_consumer.py
