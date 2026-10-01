@@ -1,0 +1,30 @@
+name: Assurance Profile portability probe
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portability:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout consumer repository
+        uses: actions/checkout@v4
+
+      - name: Checkout exact Assurance Profile candidate
+        uses: actions/checkout@v4
+        with:
+          repository: ndrorchestration/DGAF-Framework
+          ref: 08bdb60dfb42e19e51d6f3ecb9f559f521e92cba
+          path: _deps/dgaf
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run Assurance Profile external-consumer probe
+        run: python tests/assurance_profile_external_consumer.py
