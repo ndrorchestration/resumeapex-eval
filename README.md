@@ -66,7 +66,7 @@ A benchmark specification is not benchmark validation. A green CI run demonstrat
 ## Related Projects
 
 - `junior-apogee-app` — related evaluation/QA track
-- [Agentic Governance Orchestrator (proposed successor name for DGAF)](https://github.com/ndrorchestration/DGAF-Framework) — related governance/evaluation research track
+- `DGAF-Framework` — related governance/evaluation research track
 - `Amethyst-Governance-Eval-Stack` — related evaluation/orchestration track
 - `ai-prompt-systems-portfolio` — prompt-engineering/evaluation portfolio
 - `Driftwatch` — separate drift-detection track
