@@ -1,4 +1,4 @@
-# ResumeApex Eval Suite
+# ResumeApex Career Assistance Evaluation Suite
 
 [![CI — Goldcanstaytoday](https://github.com/ndrorchestration/resumeapex-eval/actions/workflows/eval-goldcanstaytoday.yml/badge.svg)](https://github.com/ndrorchestration/resumeapex-eval/actions/workflows/eval-goldcanstaytoday.yml)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
@@ -8,7 +8,7 @@
 
 > **Epistemic status:** Experimental evaluation repository. Goldcanstaytoday is a repository-defined benchmark/protocol. The executable harness is now testable against a public known-answer fixture, but this does not establish model performance, statistical validation of the private Dataset 1 corpus, external certification, governance authority, or production readiness.
 
-ResumeApex Eval Suite contains the **Goldcanstaytoday** evaluation protocol and a reproducible evaluation harness for AI assistance on resume and career tasks.
+ResumeApex Career Assistance Evaluation Suite contains the **Goldcanstaytoday** evaluation protocol and a reproducible evaluation harness for AI assistance on resume and career tasks.
 
 ## What is implemented
 
